@@ -14,19 +14,18 @@ import reactor.core.publisher.Mono;
 @Configuration
 public class CuentaRegresivaEventHandle {
 
-    private final IniciarCuentaRegresivaUseCase usecase;
+	private final IniciarCuentaRegresivaUseCase usecase;
 
-    private final IntegrationHandle handle;
+	private final IntegrationHandle handle;
 
-    public CuentaRegresivaEventHandle(IniciarCuentaRegresivaUseCase usecase, IntegrationHandle handle) {
-        this.usecase = usecase;
-        this.handle = handle;
-    }
+	public CuentaRegresivaEventHandle(IniciarCuentaRegresivaUseCase usecase, IntegrationHandle handle) {
+		this.usecase = usecase;
+		this.handle = handle;
+	}
 
-    @EventListener
-    public void handleIniciarCuentaRegresiva(RondaIniciada event) {
-        handle.apply(usecase.apply(Mono.just(event))).block();
-    }
-
+	@EventListener
+	public void handleIniciarCuentaRegresiva(RondaIniciada event) {
+		usecase.andThen(handle).apply(Mono.just(event)).block();
+	}
 
 }
