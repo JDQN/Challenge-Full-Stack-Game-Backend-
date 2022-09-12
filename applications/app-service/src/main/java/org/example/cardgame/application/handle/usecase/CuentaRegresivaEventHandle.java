@@ -3,7 +3,6 @@ package org.example.cardgame.application.handle.usecase;
 
 import org.example.cardgame.application.handle.IntegrationHandle;
 import org.example.cardgame.domain.events.RondaIniciada;
-import org.example.cardgame.usecase.usecase.IniciarCuentaRegresivaUseCase;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;

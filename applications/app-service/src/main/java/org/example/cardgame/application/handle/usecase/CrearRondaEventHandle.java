@@ -5,7 +5,6 @@ import co.com.sofka.domain.generic.Identity;
 import org.example.cardgame.application.handle.IntegrationHandle;
 import org.example.cardgame.domain.command.CrearRondaCommand;
 import org.example.cardgame.domain.events.RondaTerminada;
-import org.example.cardgame.usecase.usecase.CrearRondaUseCase;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
