@@ -32,12 +32,12 @@ public class QueryHandle {
     @Bean
     public RouterFunction<ServerResponse> listarJuego() {
         return route(
-                GET("/juego/listar/{id}"),
-                request -> template.find(filterByUId(request.pathVariable("id")), JuegoListViewModel.class, "gameview")
-                        .collectList()
-                        .flatMap(list -> ServerResponse.ok()
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .body(BodyInserters.fromPublisher(Flux.fromIterable(list), JuegoListViewModel.class)))
+					GET("/juego/listar/{id}"),
+					request -> template.find(filterByUId(request.pathVariable("id")), JuegoListViewModel.class, "gameview")
+						.collectList()
+						.flatMap(list -> ServerResponse.ok()
+							.contentType(MediaType.APPLICATION_JSON)
+							.body(BodyInserters.fromPublisher(Flux.fromIterable(list), JuegoListViewModel.class)))
         );
     }
 
