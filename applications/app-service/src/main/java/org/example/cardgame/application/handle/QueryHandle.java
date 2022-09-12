@@ -23,9 +23,7 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 
 @Configuration
 public class QueryHandle {
-
 	private final ReactiveMongoTemplate template;
-
 
 	public QueryHandle(ReactiveMongoTemplate template) {
 		this.template = template;
