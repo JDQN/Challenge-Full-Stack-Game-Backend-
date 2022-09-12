@@ -1,0 +1,17 @@
+/home/raul-alzate/IdeaProjects/game/cardgame-demo/applications/app-service/src/main/java/org/example/cardgame/application/adapter/service/DataConsultarCartaMaestraService.java
+/home/raul-alzate/IdeaProjects/game/cardgame-demo/applications/app-service/src/main/java/org/example/cardgame/application/adapter/bus/RabbitMQEventConsumer.java
+/home/raul-alzate/IdeaProjects/game/cardgame-demo/applications/app-service/src/main/java/org/example/cardgame/application/generic/StoredEvent.java
+/home/raul-alzate/IdeaProjects/game/cardgame-demo/applications/app-service/src/main/java/org/example/cardgame/application/handle/IntegrationHandle.java
+/home/raul-alzate/IdeaProjects/game/cardgame-demo/applications/app-service/src/main/java/org/example/cardgame/application/adapter/repo/MongoJuegoDomainEventRepository.java
+/home/raul-alzate/IdeaProjects/game/cardgame-demo/applications/app-service/src/main/java/org/example/cardgame/application/AppService.java
+/home/raul-alzate/IdeaProjects/game/cardgame-demo/applications/app-service/src/main/java/org/example/cardgame/application/adapter/repo/MongoEventStoreRepository.java
+/home/raul-alzate/IdeaProjects/game/cardgame-demo/applications/app-service/src/main/java/org/example/cardgame/application/ApplicationConfig.java
+/home/raul-alzate/IdeaProjects/game/cardgame-demo/applications/app-service/src/main/java/org/example/cardgame/application/generic/EventBus.java
+/home/raul-alzate/IdeaProjects/game/cardgame-demo/applications/app-service/src/main/java/org/example/cardgame/application/adapter/bus/ErrorEvent.java
+/home/raul-alzate/IdeaProjects/game/cardgame-demo/applications/app-service/src/main/java/org/example/cardgame/application/adapter/bus/RabbitMQEventBus.java
+/home/raul-alzate/IdeaProjects/game/cardgame-demo/applications/app-service/src/main/java/org/example/cardgame/application/GsonEventSerializer.java
+/home/raul-alzate/IdeaProjects/game/cardgame-demo/applications/app-service/src/main/java/org/example/cardgame/application/generic/EventStoreRepository.java
+/home/raul-alzate/IdeaProjects/game/cardgame-demo/applications/app-service/src/main/java/org/example/cardgame/application/handle/CommandHandle.java
+/home/raul-alzate/IdeaProjects/game/cardgame-demo/applications/app-service/src/main/java/org/example/cardgame/application/adapter/bus/Notification.java
+/home/raul-alzate/IdeaProjects/game/cardgame-demo/applications/app-service/src/main/java/org/example/cardgame/application/generic/DeserializeException.java
+/home/raul-alzate/IdeaProjects/game/cardgame-demo/applications/app-service/src/main/java/org/example/cardgame/application/adapter/repo/DocumentEventStored.java

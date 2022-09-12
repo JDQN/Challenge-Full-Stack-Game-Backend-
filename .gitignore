@@ -1,0 +1,10 @@
+/domain/target/
+/business/target/
+/applications/target/
+
+/.idea/
+cardgame.iml
+applications/app-proxy/app-proxy.iml
+applications/app-service/app-service.iml
+applications/applications.iml
+domain/domain.iml
