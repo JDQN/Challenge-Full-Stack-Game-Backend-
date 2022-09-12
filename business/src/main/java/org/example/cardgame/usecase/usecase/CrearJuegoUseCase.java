@@ -9,7 +9,6 @@ import org.example.cardgame.usecase.gateway.ListaDeCartaService;
 import org.example.cardgame.usecase.gateway.model.CartaMaestra;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -43,7 +42,7 @@ public class CrearJuegoUseCase extends UseCaseForCommand<CrearJuegoCommand> {
 
 	private Mazo generarMazo(List<CartaMaestra> cartas) {
 		Collections.shuffle(cartas);
-		var lista = cartas.stream().limit(5)
+		var lista = cartas.stream().limit(2)
 			 .map(carta -> new Carta(CartaMaestraId.of(carta.getId()), carta.getPoder(), false, true))
 			 .collect(Collectors.toList());
 		cartas.removeIf(cartaMaestra -> lista.stream().anyMatch(carta -> {
