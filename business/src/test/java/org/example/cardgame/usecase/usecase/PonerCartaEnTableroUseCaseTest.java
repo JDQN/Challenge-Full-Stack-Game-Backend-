@@ -33,38 +33,38 @@ class PonerCartaEnTableroUseCaseTest {
 	void ponerCarta() {
 		//arrange
 		var command = new PonerCartaEnTablero();
-		command.setCartaId("xxxxx");
-		command.setJuegoId("fffff");
-		command.setJugadorId("yyyyy");
-		when(repository.obtenerEventosPor("fffff")).thenReturn(history());
+		command.setCartaId("cartaId1");
+		command.setJuegoId("juegoId1");
+		command.setJugadorId("JugadorId1");
+		when(repository.obtenerEventosPor("juegoId1")).thenReturn(history());
 
 		StepVerifier.create(useCase.apply(Mono.just(command)))//act
 			 .expectNextMatches(domainEvent -> {
 				 var event = (CartaPuestaEnTablero) domainEvent;
-				 Assertions.assertEquals("yyyyy", event.getJugadorId().value());
-				 return "xxxxx".equals(event.getCarta().value().cartaId().value());
+				 Assertions.assertEquals("JugadorId1", event.getJugadorId().value());
+				 return "cartaId1".equals(event.getCarta().value().cartaId().value());
 			 })
 			 .expectNextMatches(domainEvent -> {
 				 var event = (CartaQuitadaDelMazo) domainEvent;
-				 Assertions.assertEquals("yyyyy", event.getJugadorId().value());
-				 return "xxxxx".equals(event.getCarta().value().cartaId().value());
+				 Assertions.assertEquals("JugadorId1", event.getJugadorId().value());
+				 return "cartaId1".equals(event.getCarta().value().cartaId().value());
 			 })
 			 .expectComplete()
 			 .verify();
 	}
 
 	private Flux<DomainEvent> history() {
-		var jugadorId = JugadorId.of("yyyyy");
-		var jugador2Id = JugadorId.of("hhhhhh");
+		var jugadorId = JugadorId.of("JugadorId1");
+		var jugador2Id = JugadorId.of("JugadorId2");
 		var cartas = Set.of(new Carta(
-			 CartaMaestraId.of("xxxxx"),
+			 CartaMaestraId.of("cartaId1"),
 			 20,
 			 false, true
 		));
 		var ronda = new Ronda(1, Set.of(jugadorId, jugador2Id));
 		return Flux.just(
 			 new JuegoCreado(jugadorId),
-			 new JugadorAgregado(jugadorId, "raul", new Mazo(cartas)),
+			 new JugadorAgregado(jugadorId, "JuanDavid", new Mazo(cartas)),
 			 new TableroCreado(new TableroId(), Set.of(jugadorId, jugador2Id)),
 			 new RondaCreada(ronda, 30),
 			 new RondaIniciada()
