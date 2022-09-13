@@ -10,36 +10,20 @@ import java.util.Set;
  * The type Ronda terminada.
  */
 public class RondaTerminada extends DomainEvent {
-    private final TableroId tableroId;
-    private final Set<JugadorId> jugadorIds;
+	private final TableroId tableroId;
+	private final Set<JugadorId> jugadorIds;
 
-    /**
-     * Instantiates a new Ronda terminada.
-     *
-     * @param tableroId  the tablero id
-     * @param jugadorIds the jugador ids
-     */
-    public RondaTerminada(TableroId tableroId, Set<JugadorId> jugadorIds) {
-        super("cardgame.rondaterminada");
-        this.tableroId = tableroId;
-        this.jugadorIds = jugadorIds;
-    }
+	public RondaTerminada(TableroId tableroId, Set<JugadorId> jugadorIds) {
+		super("cardgame.rondaterminada");
+		this.tableroId = tableroId;
+		this.jugadorIds = jugadorIds;
+	}
 
-    /**
-     * Gets tablero id.
-     *
-     * @return the tablero id
-     */
-    public TableroId getTableroId() {
-        return tableroId;
-    }
+	public TableroId getTableroId() {
+		return tableroId;
+	}
 
-    /**
-     * Gets jugador ids.
-     *
-     * @return the jugador ids
-     */
-    public Set<JugadorId> getJugadorIds() {
-        return jugadorIds;
-    }
+	public Set<JugadorId> getJugadorIds() {
+		return jugadorIds;
+	}
 }

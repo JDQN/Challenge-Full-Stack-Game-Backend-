@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRep
 @SpringBootApplication
 @EnableReactiveMongoRepositories
 public class AppService {
+
     public static void main(String[] args) {
         SpringApplication.run(AppService.class, args);
     }

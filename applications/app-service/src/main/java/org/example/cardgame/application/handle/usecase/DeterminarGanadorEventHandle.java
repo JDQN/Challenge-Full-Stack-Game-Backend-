@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import reactor.core.publisher.Mono;
 
+@EnableAsync
 @Configuration
 public class DeterminarGanadorEventHandle {
 	private final DeterminarGanadorUseCase usecase;
@@ -21,8 +22,10 @@ public class DeterminarGanadorEventHandle {
 		this.handle = handle;
 	}
 
+	@Async
 	@EventListener
 	public void handleIniciarCuentaRegresiva(RondaTerminada event) {
 		handle.apply(usecase.apply(Mono.just(event))).block();
 	}
+
 }

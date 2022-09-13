@@ -20,34 +20,34 @@ import java.util.Arrays;
 
 @Configuration
 @ComponentScan(value="org.example.cardgame.usecase",
-        useDefaultFilters = false, includeFilters = @ComponentScan.Filter
-        (type = FilterType.REGEX, pattern = ".*UseCase")
+	 useDefaultFilters = false, includeFilters = @ComponentScan.Filter
+	 (type = FilterType.REGEX, pattern = ".*UseCase")
 )
 public class ApplicationConfig {
-    public static final String EXCHANGE = "core-game";
+	public static final String EXCHANGE = "core-game";
 
 
-    @Bean
-    public RabbitAdmin rabbitAdmin(RabbitTemplate rabbitTemplate) {
-        var admin =  new RabbitAdmin(rabbitTemplate);
-        admin.declareExchange(new TopicExchange(EXCHANGE));
-        return admin;
-    }
+	@Bean
+	public RabbitAdmin rabbitAdmin(RabbitTemplate rabbitTemplate) {
+		var admin =  new RabbitAdmin(rabbitTemplate);
+		admin.declareExchange(new TopicExchange(EXCHANGE));
+		return admin;
+	}
 
-    @Bean
-    public CorsWebFilter corsWebFilter() {
-        CorsConfiguration corsConfig = new CorsConfiguration();
-        corsConfig.setAllowedOrigins(Arrays.asList("*"));
-        corsConfig.setMaxAge(8000L);
-        corsConfig.addAllowedHeader("*");
-        corsConfig.addAllowedMethod("*");
+	@Bean
+	public CorsWebFilter corsWebFilter() {
+		CorsConfiguration corsConfig = new CorsConfiguration();
+		corsConfig.setAllowedOrigins(Arrays.asList("*"));
+		corsConfig.setMaxAge(8000L);
+		corsConfig.addAllowedHeader("*");
+		corsConfig.addAllowedMethod("*");
 
-        UrlBasedCorsConfigurationSource source =
-                new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", corsConfig);
+		UrlBasedCorsConfigurationSource source =
+			 new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", corsConfig);
 
-        return new CorsWebFilter(source);
-    }
+		return new CorsWebFilter(source);
+	}
 
 }
 

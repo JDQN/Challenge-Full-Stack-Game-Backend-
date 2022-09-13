@@ -12,30 +12,30 @@ import java.util.function.Function;
 
 @Component
 public class IntegrationHandle implements Function<Flux<DomainEvent>, Mono<Void> > {
-    private final EventStoreRepository repository;
-    private final StoredEvent.EventSerializer eventSerializer;
-    private final EventBus eventBus;
+	private final EventStoreRepository repository;
+	private final StoredEvent.EventSerializer eventSerializer;
+	private final EventBus eventBus;
 
-    public IntegrationHandle(EventStoreRepository repository, StoredEvent.EventSerializer eventSerializer, EventBus eventBus) {
-        this.repository = repository;
-        this.eventSerializer = eventSerializer;
-        this.eventBus = eventBus;
-    }
+	public IntegrationHandle(EventStoreRepository repository, StoredEvent.EventSerializer eventSerializer, EventBus eventBus) {
+		this.repository = repository;
+		this.eventSerializer = eventSerializer;
+		this.eventBus = eventBus;
+	}
 
-    @Override
-    public Mono<Void> apply(Flux<DomainEvent> events){
-        return events.flatMap(domainEvent -> {
-            var stored = StoredEvent.wrapEvent(domainEvent, eventSerializer);
-            return repository.saveEvent("game", domainEvent.aggregateRootId(), stored)
-                    .thenReturn(domainEvent);
-        }).doOnNext(eventBus::publish).then();
-    }
+	@Override
+	public Mono<Void> apply(Flux<DomainEvent> events){
+		return events.flatMap(domainEvent -> {
+			var stored = StoredEvent.wrapEvent(domainEvent, eventSerializer);
+			return repository.saveEvent("game", domainEvent.aggregateRootId(), stored)
+				 .thenReturn(domainEvent);
+		}).doOnNext(eventBus::publish).then();
+	}
 
-    public Mono<Void> publishError(Throwable errorEvent){
-        return Mono.create((callback) -> {
-            eventBus.publishError(errorEvent);
-            callback.success();
-        });
-    }
+	public Mono<Void> publishError(Throwable errorEvent){
+		return Mono.create((callback) -> {
+			eventBus.publishError(errorEvent);
+			callback.success();
+		});
+	}
 
 }

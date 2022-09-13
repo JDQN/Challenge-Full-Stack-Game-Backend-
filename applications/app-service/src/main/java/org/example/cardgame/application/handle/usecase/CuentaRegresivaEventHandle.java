@@ -11,6 +11,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import reactor.core.publisher.Mono;
 
 
+@EnableAsync
 @Configuration
 public class CuentaRegresivaEventHandle {
 
@@ -23,9 +24,10 @@ public class CuentaRegresivaEventHandle {
 		this.handle = handle;
 	}
 
+	@Async
 	@EventListener
 	public void handleIniciarCuentaRegresiva(RondaIniciada event) {
-		usecase.andThen(handle).apply(Mono.just(event)).block();
+		handle.apply(usecase.apply(Mono.just(event))).block();
 	}
 
 }
