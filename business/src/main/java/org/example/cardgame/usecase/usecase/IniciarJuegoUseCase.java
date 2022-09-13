@@ -5,6 +5,7 @@ import co.com.sofka.domain.generic.DomainEvent;
 import org.example.cardgame.domain.Juego;
 import org.example.cardgame.domain.command.IniciarJuegoCommand;
 import org.example.cardgame.domain.values.JuegoId;
+import org.example.cardgame.domain.values.Ronda;
 import org.example.cardgame.usecase.gateway.JuegoDomainEventRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -28,6 +29,7 @@ public class IniciarJuegoUseCase extends UseCaseForCommand<IniciarJuegoCommand> 
 		 .flatMapIterable(events -> {
 			 var juego = Juego.from(JuegoId.of(command.getJuegoId()), events);
 			 juego.crearTablero();
+			 juego.crearRonda(new Ronda(1, juego.jugadores().keySet()), 80);
 			 return juego.getUncommittedChanges();
 		 }));
 	}
