@@ -76,6 +76,40 @@ public class QueryHandle {
 		);
 	}
 
+	@Bean
+	public RouterFunction<ServerResponse> getGames(){
+		return RouterFunctions.route(
+			 GET("/juegos/"),
+			 serverRequest -> template.findAll(JuegoListViewModel.class,"gameview")
+					.collectList()
+					.flatMap(games->ServerResponse.ok()
+						 .contentType(MediaType.APPLICATION_JSON)
+						 .body(BodyInserters.fromPublisher(Flux.fromIterable(games),JuegoListViewModel.class))));
+
+	}
+
+	//Nuevo requerimiento
+	@Bean RouterFunction<ServerResponse> juegosFinalizados(){
+		return RouterFunctions.route(
+			 GET("/juego/finalizados/{jugadorId}"),
+			 request -> template.find(filterByJugadores(request.pathVariable("jugadorId")),
+				 JuegoListViewModel.class, "gameview").collectList()
+				.flatMap(list -> ServerResponse.ok()
+					 .contentType(MediaType.APPLICATION_JSON)
+					 .body(BodyInserters.fromPublisher(Flux.fromIterable(list), JuegoListViewModel.class)))
+		);
+	}
+
+
+//Nueva requerimiento
+	private Query filterByJugadores(String jugadorBusqueda){
+		//log.info(jugadorBusqueda.toString());
+		return new Query(
+			 Criteria.where("jugadores."+jugadorBusqueda+".jugadorId").is(jugadorBusqueda)
+					.and("finalizado").is(true)
+		);
+	}
+
 
 	private Query filterByUId(String uid) {
 		return new Query(

@@ -4,6 +4,7 @@ import co.com.sofka.domain.generic.EventChange;
 import org.example.cardgame.domain.events.*;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Objects;
 
 /**
@@ -16,10 +17,12 @@ public class JuegoEventChange extends EventChange {
 	 * @param juego the juego
 	 */
 	public JuegoEventChange(Juego juego) {
+
 		apply((JuegoCreado event) -> {
 			juego.jugadores = new HashMap<>();
 			juego.jugadorPrincipal = event.getJugadorPrincipal();
 		});
+
 		apply((JugadorAgregado event) -> {
 			juego.jugadores.put(event.getJuegoId(),
 				 new Jugador(event.getJuegoId(), event.getAlias(), event.getMazo())
@@ -46,7 +49,8 @@ public class JuegoEventChange extends EventChange {
 			if(Boolean.FALSE.equals(juego.tablero.estaHabilitado())){
 				throw new IllegalArgumentException("No se puedo apostar porque el tablero no esta habilitado");
 			}
-			juego.tablero.adicionarPartida(event.getJugadorId(), event.getCarta());        });
+			juego.tablero.adicionarPartida(event.getJugadorId(), event.getCarta());
+		});
 
 		apply((CartaQuitadaDelTablero event) -> {
 			juego.tablero.quitarCarta(event.getJugadorId(), event.getCarta());
@@ -62,6 +66,7 @@ public class JuegoEventChange extends EventChange {
 			}
 			juego.ronda = juego.ronda.iniciarRonda();
 			juego.tablero.habilitarApuesta();
+			juego.tablero.partida().forEach((key, Value) -> juego.tablero.partida().put(key,new HashSet<>()));
 		});
 
 		apply((RondaTerminada event) -> {

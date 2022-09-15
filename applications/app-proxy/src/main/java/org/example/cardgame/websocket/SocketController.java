@@ -10,6 +10,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -59,13 +60,13 @@ public class SocketController {
                 logger.info("send from " + correlationId);
 
                 sessions.get(correlationId).values()
-                        .forEach(session -> {
-                            try {
-                                session.getAsyncRemote().sendText(message);
-                            } catch (RuntimeException e){
-                                logger.log(Level.SEVERE, e.getMessage(), e);
-                            }
-                        });
+										.forEach(session -> {
+												try {
+														session.getBasicRemote().sendText(message);
+												} catch (RuntimeException | IOException e){
+														logger.log(Level.SEVERE, e.getMessage(), e);
+												}
+										});
             }
 
 
