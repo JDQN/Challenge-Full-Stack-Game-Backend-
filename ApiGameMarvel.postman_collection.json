@@ -1,0 +1,260 @@
+{
+	"info": {
+		"_postman_id": "1e5aa378-c2dd-4f6f-a0dc-a3c878b148a0",
+		"name": "ApiGameMarvel",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13276819"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/juegos/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/juegos/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"juegos",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Tablero",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/juego/0f2137da-d8a5-4f79-a918-daa570528c68",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"juego",
+						"0f2137da-d8a5-4f79-a918-daa570528c68"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Mazo por Jugador {uid}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/jugador/mazo/6Y6T9fHlYba4l0flkeUGDmMuLAm2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"jugador",
+						"mazo",
+						"6Y6T9fHlYba4l0flkeUGDmMuLAm2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Juego / id del jugador principal",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/juego/listar/6Y6T9fHlYba4l0flkeUGDmMuLAm2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"juego",
+						"listar",
+						"6Y6T9fHlYba4l0flkeUGDmMuLAm2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Historico del Juego Nueva Funcionalidad",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/juego/finalizados/zt5zqIp142ZdHpsXxaNj91yQLxk2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"juego",
+						"finalizados",
+						"zt5zqIp142ZdHpsXxaNj91yQLxk2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Juego",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \"juegoId\": \"123\",\r\n     \"jugadores\": {\r\n         \"uid:01\": \"Maria\",\r\n         \"uid:02\": \"Astrid\"\r\n    },\r\n    \"jugadorPrincipalId\": \"uid:01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/juego/crear",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"juego",
+						"crear"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Iniciar Juego",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \"juegoId\": \"123\",\r\n     \"tableroId\":\"tablero1\",\r\n     \"jugadores\": {\r\n         \"uid:01\": \"Maria\",\r\n         \"uid:02\": \"Astrid\"\r\n    },\r\n    \"jugadorPrincipalId\": \"uid:01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/juego/iniciar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"juego",
+						"iniciar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Juego Crear Ronda",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"juegoId\": \"123\",\r\n     \"tableroId\":\"tablero1\",\r\n    \"jugadores\": [\r\n        \"uid:01\",\r\n        \"uid:02\"\r\n    ],\r\n\r\n    \"tiempo\": 80\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/juego/crear/ronda",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"juego",
+						"crear",
+						"ronda"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Juego Iniciar Ronda",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"juegoId\":\"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/juego/ronda/iniciar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"juego",
+						"ronda",
+						"iniciar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Poner Carta en el Tablero",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"juegoId\":\"123\",\r\n    \"cartaId\": \"1011758\",\r\n    \"jugadorId\":\"uid:01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/juego/poner",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"juego",
+						"poner"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
