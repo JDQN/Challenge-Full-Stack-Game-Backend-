@@ -85,7 +85,6 @@ public class CommandHandle {
 					.apply(request.bodyToMono(CrearRondaCommand.class))
 					.then(ServerResponse.ok().build())
 					.onErrorResume(errorHandler::badRequest)
-
 		);
 	}
 

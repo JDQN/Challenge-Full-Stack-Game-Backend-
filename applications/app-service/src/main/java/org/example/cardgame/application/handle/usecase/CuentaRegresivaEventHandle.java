@@ -27,8 +27,8 @@ public class CuentaRegresivaEventHandle {
 	@Async
 	@EventListener
 	public void handleIniciarCuentaRegresiva(RondaIniciada event) {
-		//handle.apply(usecase.apply(Mono.just(event))).block();
-		usecase.andThen(handle).apply(Mono.just(event)).block();
+		handle.apply(usecase.apply(Mono.just(event))).block();
+		//usecase.andThen(handle).apply(Mono.just(event)).block();
 	}
 
 }

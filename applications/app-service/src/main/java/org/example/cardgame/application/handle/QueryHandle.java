@@ -2,15 +2,21 @@ package org.example.cardgame.application.handle;
 
 
 import org.example.cardgame.application.handle.model.JuegoListViewModel;
+import org.example.cardgame.application.handle.model.ListaDeTargetas;
 import org.example.cardgame.application.handle.model.MazoViewModel;
 import org.example.cardgame.application.handle.model.TableroViewModel;
+import org.example.cardgame.domain.command.CrearRondaCommand;
+import org.example.cardgame.usecase.usecase.CrearRondaUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.reactive.function.BodyInserters;
+import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -18,8 +24,10 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
+import static org.springframework.web.reactive.function.server.RequestPredicates.POST;
 import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
+
 
 @Configuration
 public class QueryHandle {
@@ -64,6 +72,8 @@ public class QueryHandle {
 						 .body(BodyInserters.fromPublisher(Mono.just(element), MazoViewModel.class)))
 		);
 	}
+
+
 	@Bean
 	public RouterFunction<ServerResponse> mazoPorJugador() {
 		return RouterFunctions.route(
@@ -75,6 +85,7 @@ public class QueryHandle {
 						 .body(BodyInserters.fromPublisher(Flux.fromIterable(list), MazoViewModel.class)))
 		);
 	}
+
 
 	@Bean
 	public RouterFunction<ServerResponse> getGames(){
@@ -88,7 +99,32 @@ public class QueryHandle {
 
 	}
 
-	//Nuevo requerimiento
+
+	//Segundo requerimiento
+	@Bean
+	public RouterFunction<ServerResponse> getAllCartas() {
+		return route(
+			 GET("/cartas"),
+			 request -> template.findAll (ListaDeTargetas.class, "cards")
+					.collectList()
+					.flatMap(list -> ServerResponse.ok()
+						 .contentType(MediaType.APPLICATION_JSON)
+						 .body(BodyInserters.fromPublisher(Flux.fromIterable(list), ListaDeTargetas.class)))
+		);
+	}
+
+
+	@Bean
+	public RouterFunction<ServerResponse> createCard() {
+		return route(
+			 POST("/carta/creada").and(accept(MediaType.APPLICATION_JSON)),
+			 request -> template.save(request.bodyToMono(ListaDeTargetas.class), "cards")
+					.then(ServerResponse.ok().build())
+		);
+	}
+
+
+	//primer requerimiento
 	@Bean RouterFunction<ServerResponse> juegosFinalizados(){
 		return RouterFunctions.route(
 			 GET("/juego/finalizados/{jugadorId}"),
@@ -101,7 +137,7 @@ public class QueryHandle {
 	}
 
 
-//Nueva requerimiento
+	//primer requerimiento
 	private Query filterByJugadores(String jugadorBusqueda){
 		//log.info(jugadorBusqueda.toString());
 		return new Query(

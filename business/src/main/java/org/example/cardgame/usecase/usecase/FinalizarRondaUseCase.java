@@ -41,7 +41,6 @@ public class FinalizarRondaUseCase extends UseCaseForCommand<FinalizarRondaComma
 								partidaOrdenada.put(puntos, jugadorId.value());
 								cartasEnTablero.addAll(cartas);
 							});
-
 				 });
 
 				 var competidores = partidaOrdenada.values()
@@ -56,6 +55,4 @@ public class FinalizarRondaUseCase extends UseCaseForCommand<FinalizarRondaComma
 				 return juego.getUncommittedChanges();
 			 }));
 	}
-
-
 }

@@ -45,8 +45,8 @@ class FinalizarRondaUseCaseTest {
 				 return event.aggregateRootId().equals("JuegoId1")
 						&& event.getGanadorId().equals(JugadorId.of("JugadorId1"))
 						&& event.getPuntos().equals(1000)
-						&& event.getCartasApuesta().equals(Set.of(new Carta(CartaMaestraId.of("CartaMaestraId1"), 1000, true, true),
-						new Carta(CartaMaestraId.of("CartaMaestraId2"), 999, true, true)));
+						&& event.getCartasApuesta().equals(Set.of(new Carta(CartaMaestraId.of("CartaMaestraId1"), 1000, true, true, "www"),
+						new Carta(CartaMaestraId.of("CartaMaestraId2"), 999, true, true, "www")));
 			 }).expectNextMatches(domainEvent -> {
 				 var event = (RondaTerminada) domainEvent;
 				 return event.aggregateRootId().equals("JuegoId1")
@@ -65,23 +65,21 @@ class FinalizarRondaUseCaseTest {
 		var event2 = new JugadorAgregado(
 			 JugadorId.of("JugadorId1"), "JuanDa",
 			 new Mazo(Set.of(
-					new Carta(CartaMaestraId.of("CartaMaestraId1"), 1000, true, true),
-					new Carta(CartaMaestraId.of("bbb"), 102, true, true),
-					new Carta(CartaMaestraId.of("ccc"), 101, true, true),
-					new Carta(CartaMaestraId.of("ddd"), 104, true, true),
-					new Carta(CartaMaestraId.of("fff"), 150, true, true)
+					new Carta(CartaMaestraId.of("CartaMaestraId1"), 1000, true, true, "www"),
+					new Carta(CartaMaestraId.of("bbb"), 102, true, true, "www"),
+					new Carta(CartaMaestraId.of("ccc"), 101, true, true, "www")
 			 )));
 		event2.setAggregateRootId("JuegoId1");
 
 		var event3 = new JugadorAgregado(
 			 JugadorId.of("JugadorId2"), "Astrid",
 			 new Mazo(Set.of(
-					new Carta(CartaMaestraId.of("CartaMaestraId2"), 999, true, true),
-					new Carta(CartaMaestraId.of("bbba"), 102, true, true),
-					new Carta(CartaMaestraId.of("ccca"), 101, true, true),
-					new Carta(CartaMaestraId.of("ddda"), 104, true, true),
-					new Carta(CartaMaestraId.of("fffa"), 150, true, true)
+					new Carta(CartaMaestraId.of("CartaMaestraId2"), 999, true, true, "www"),
+					new Carta(CartaMaestraId.of("bbba"), 102, true, true, "www"),
+					new Carta(CartaMaestraId.of("ccca"), 101, true, true, "www"),
+					new Carta(CartaMaestraId.of("ddda"), 104, true, true, "www")
 			 )));
+
 		event3.setAggregateRootId("JuegoId1");
 
 		var event4 = new TableroCreado(TableroId.of("TableroId1"),
@@ -104,19 +102,20 @@ class FinalizarRondaUseCaseTest {
 		event6.setAggregateRootId("JuegoId1");
 
 		//JUGADOR 1//
-		var event7 = new CartaPuestaEnTablero(event4.getTableroId(), event2.getJugadorId(), new Carta(CartaMaestraId.of("CartaMaestraId1"), 1000, true, true));
+		var event7 = new CartaPuestaEnTablero(event4.getTableroId(), event2.getJugadorId(), new Carta(CartaMaestraId.of("CartaMaestraId1"), 1000, true, true, "www"));
 		event7.setAggregateRootId("JuegoId1");
 
-		var event8 = new CartaQuitadaDelMazo(event2.getJugadorId(), new Carta(CartaMaestraId.of("CartaMaestraId1"), 1000, true, true));
+		var event8 = new CartaQuitadaDelMazo(event2.getJugadorId(), new Carta(CartaMaestraId.of("CartaMaestraId1"), 1000, true, true, "www"));
 		event8.setAggregateRootId("JuegoId1");
 
 		//JUGADOR 2//
-		var event9 = new CartaPuestaEnTablero(event4.getTableroId(), event3.getJugadorId(), new Carta(CartaMaestraId.of("CartaMaestraId2"), 999, true, true));
+		var event9 = new CartaPuestaEnTablero(event4.getTableroId(), event3.getJugadorId(), new Carta(CartaMaestraId.of("CartaMaestraId2"), 999, true, true, "www"));
 		event9.setAggregateRootId("JuegoId1");
 
-		var event10 = new CartaQuitadaDelMazo(event3.getJugadorId(), new Carta(CartaMaestraId.of("CartaMaestraId2"), 999, true, true));
+		var event10 = new CartaQuitadaDelMazo(event3.getJugadorId(), new Carta(CartaMaestraId.of("CartaMaestraId2"), 999, true, true, "www"));
 		event10.setAggregateRootId("JuegoId1");
 
 		return Flux.just(event, event2, event3, event4, event5, event6, event7, event8, event9, event10);
 	}
+
 }
