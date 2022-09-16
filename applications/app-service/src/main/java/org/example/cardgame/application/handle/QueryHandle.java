@@ -25,6 +25,7 @@ import reactor.core.publisher.Mono;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
 import static org.springframework.web.reactive.function.server.RequestPredicates.POST;
+import static org.springframework.web.reactive.function.server.RequestPredicates.DELETE;
 import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
@@ -100,7 +101,7 @@ public class QueryHandle {
 	}
 
 
-	//Segundo requerimiento
+	//Segundo requerimiento AllCartas
 	@Bean
 	public RouterFunction<ServerResponse> getAllCartas() {
 		return route(
@@ -114,6 +115,7 @@ public class QueryHandle {
 	}
 
 
+	//Segunda  requerimiento CreateCarta
 	@Bean
 	public RouterFunction<ServerResponse> createCard() {
 		return route(
@@ -122,6 +124,24 @@ public class QueryHandle {
 					.then(ServerResponse.ok().build())
 		);
 	}
+
+	//Segunda  requerimiento E;liminarCarta
+	@Bean
+	public RouterFunction<ServerResponse> deleteCard() {
+		return route(
+			 DELETE("/carta/eliminada/{nombre}"),
+			 request -> template.findAndRemove(filterCardByName(request.pathVariable("nombre")), ListaDeTargetas.class, "cards")
+					.flatMap(element -> ServerResponse.ok()
+						 .contentType(MediaType.APPLICATION_JSON)
+						 .body(BodyInserters.fromPublisher(Mono.just(element), ListaDeTargetas.class)))
+		);
+	}
+	private Query filterCardByName(String nombre) {
+		return new Query(
+			 Criteria.where("nombre").is(nombre)
+		);
+	}
+
 
 
 	//primer requerimiento
